@@ -6,13 +6,10 @@
 using System;
 using System.Windows.Forms;
 
-// Autoría: (pon aquí el mismo encabezado con los nombres del equipo)
-
 namespace SistemaBiblioteca1
 {
     public partial class FrmMaestro : Form
     {
-        // Variable polimórfica: no conoce las clases concretas de los hijos
         private IPanelCRUD vistaActiva;
 
         public FrmMaestro()
@@ -21,7 +18,6 @@ namespace SistemaBiblioteca1
             cmbModulo.Items.AddRange(new object[] { "Autor", "Libro", "Prestamo", "Sancion", "Usuario" });
         }
 
-        // ---------- Selección e incrustación del módulo ----------
         private void cmbModulo_SelectedIndexChanged(object sender, EventArgs e)
         {
             Form vista = CrearVista(cmbModulo.SelectedItem?.ToString());
@@ -52,7 +48,6 @@ namespace SistemaBiblioteca1
 
         private void MostrarVista(Form vista)
         {
-            // Quitar y liberar la vista anterior
             if (pnlContenedorVistas.Controls.Count > 0)
             {
                 Control anterior = pnlContenedorVistas.Controls[0];
@@ -60,7 +55,6 @@ namespace SistemaBiblioteca1
                 anterior.Dispose();
             }
 
-            // Incrustar el formulario hijo dentro del panel
             vista.TopLevel = false;
             vista.FormBorderStyle = FormBorderStyle.None;
             vista.Dock = DockStyle.Fill;
@@ -73,7 +67,6 @@ namespace SistemaBiblioteca1
             tsslEstado.Text = "Módulo activo: " + cmbModulo.SelectedItem;
         }
 
-        // ---------- Botones maestros ----------
         private void btnMasterGuardar_Click(object sender, EventArgs e)
         {
             if (!HayVistaActiva()) return;
